@@ -1,18 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage ('Sonarqube analysis') {
-            script {
-                // requires SonarQube Scanner
-                def scannerHome = tool 'sonar';
+        stage('sonarqube') {
+            environment {
+                scannerHome = tool 'sonar'
+            }
 
-                withSonarQubeEnv('sonar') {
-                    echo 'test'
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh '${scannerHome}/bin/sonar-scanner'
                 }
             }
         }
         stage('Build') {
             steps {
+                sh 'mvn clean compile'
                 echo ' This is a minimal pipeline'
             }
         }
