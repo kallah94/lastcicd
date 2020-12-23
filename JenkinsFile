@@ -13,6 +13,10 @@ pipeline {
                           -Dsonar.host.url=http://localhost:8888 \
                           -Dsonar.login=d4a38354e5ad3213071c9f2680c8095d735d2b1e'
                 }
+
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abordPipeline: true
+                }
             }
         }
         stage('Build') {
