@@ -21,5 +21,13 @@ pipeline {
                 echo 'Packaging done....'
             }
         }
+
+        stage('Deploy to glassfish') {
+            steps {
+                sh 'sudo /opt/glassfish5/bin/asadmin start-domain domain1'
+
+                'Glassfish Up and running'
+            }
+        }
     }
 }
