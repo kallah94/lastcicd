@@ -13,6 +13,14 @@ pipeline {
                           -Dsonar.host.url=http://localhost:8888 \
                           -Dsonar.login=d4a38354e5ad3213071c9f2680c8095d735d2b1e'
                 }
+
+                 script {
+
+                    def qualitygate = waitForQualityGate()
+                    if (qualitygate.status != "OK") {
+                        error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+                    }
+                }
             }
         }
         stage('Build') {
@@ -20,11 +28,12 @@ pipeline {
                 sh 'mvn clean package'
                 echo 'Packaging done....'
             }
+
         }
 
         stage('Deploy to glassfish') {
             steps {
-                sh 'gksudo /opt/glassfish5/bin/asadmin start-domain domain1'
+                sh '/opt/glassfish5/bin/asadmin deploy --force '
 
                 echo 'Glassfish Up and running'
             }
