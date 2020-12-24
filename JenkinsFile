@@ -24,7 +24,7 @@ pipeline {
 
         stage('Deploy to glassfish') {
             steps {
-                sh 'sudo /opt/glassfish5/bin/asadmin start-domain domain1'
+                sh 'sudo -A /opt/glassfish5/bin/asadmin start-domain domain1'
 
                 echo 'Glassfish Up and running'
             }
