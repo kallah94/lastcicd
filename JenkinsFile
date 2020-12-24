@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'sudo /opt/glassfish5/bin/asadmin start-domain domain1'
 
-                'Glassfish Up and running'
+                echo 'Glassfish Up and running'
             }
         }
     }
